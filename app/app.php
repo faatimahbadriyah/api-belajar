@@ -61,34 +61,34 @@ $app->before(function () use($app,$routes) {
   $app->logger->info("POST Body Request: " . file_get_contents("php://input"));
   $app->logger->info("FILE  Request: " . json_encode($_FILES));
   $app->logger->info($app->common->clientIp()."-Header: " . json_encode($app->common->getallheaders()));
-  // Get Roles
-  $scRoles=ScRole::find();
-  $app->requestApi->data->roles=!empty($scRoles) ? $scRoles:[];
-  if($app->checkAuth): // Need to verified
-    $application=Applications::findFirstByAppId($app->requestApi->applicationId);
+  // // Get Roles
+  // $scRoles=ScRole::find();
+  // $app->requestApi->data->roles=!empty($scRoles) ? $scRoles:[];
+  // if($app->checkAuth): // Need to verified
+  //   $application=Applications::findFirstByAppId($app->requestApi->applicationId);
     
-    if(!$application):
-      throw new Exception(Definitions::message(Definitions::E_INVALID_APPLICATION),Definitions::E_INVALID_APPLICATION);
-    endif;
+  //   if(!$application):
+  //     throw new Exception(Definitions::message(Definitions::E_INVALID_APPLICATION),Definitions::E_INVALID_APPLICATION);
+  //   endif;
     
   
-    $app->requestApi->data->application=$application;
-    $app->requestApi->data->input_str=file_get_contents("php://input");
-    $app->requestApi->data->input=json_decode($app->requestApi->data->input_str);
-    if(trim($app->requestApi->token)!=trim($application->token)):
-      throw new Exception(Definitions::message(Definitions::E_INVALID_TOKEN),Definitions::E_INVALID_TOKEN);
-    endif;
-    if(strtotime($application->expired)<time()):
-      //$application->delete(); // Delete token when expire
-      throw new Exception(Definitions::message(Definitions::E_TOKEN_EXPIRED),Definitions::E_TOKEN_EXPIRED);
-    endif;
-    $app->requestApi->data->application=$application;
-    $app->requestApi->data->input_str=file_get_contents("php://input");
-    $app->requestApi->data->input=json_decode($app->requestApi->data->input_str);
-    // update token
-    $application->expired=date("Y-m-d H:i:s",(time()+$app->config->token->expire));
-    $application->save();
-  endif;
+  //   $app->requestApi->data->application=$application;
+  //   $app->requestApi->data->input_str=file_get_contents("php://input");
+  //   $app->requestApi->data->input=json_decode($app->requestApi->data->input_str);
+  //   if(trim($app->requestApi->token)!=trim($application->token)):
+  //     throw new Exception(Definitions::message(Definitions::E_INVALID_TOKEN),Definitions::E_INVALID_TOKEN);
+  //   endif;
+  //   if(strtotime($application->expired)<time()):
+  //     //$application->delete(); // Delete token when expire
+  //     throw new Exception(Definitions::message(Definitions::E_TOKEN_EXPIRED),Definitions::E_TOKEN_EXPIRED);
+  //   endif;
+  //   $app->requestApi->data->application=$application;
+  //   $app->requestApi->data->input_str=file_get_contents("php://input");
+  //   $app->requestApi->data->input=json_decode($app->requestApi->data->input_str);
+  //   // update token
+  //   $application->expired=date("Y-m-d H:i:s",(time()+$app->config->token->expire));
+  //   $application->save();
+  // endif;
 });
 
 $app->after(function () use($app) {

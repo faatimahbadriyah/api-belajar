@@ -29,7 +29,7 @@ class MainController extends Phalcon\Mvc\Controller
   public function swagger()
   {
 	if (!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_PW']) || ($_SERVER['PHP_AUTH_USER']!="data" && $_SERVER['PHP_AUTH_PW']!='kreativia')) {
-		header('WWW-Authenticate: Basic realm="School Connect Access"');
+		header('WWW-Authenticate: Basic realm="API Belajar Access"');
 		header('HTTP/1.0 401 Unauthorized');
 		echo 'Your are not authorized';
 		exit;

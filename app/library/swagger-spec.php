@@ -2,8 +2,8 @@
 /**
   * @SWG\Swagger(
    * basePath="/",
-   * @SWG\Info(title="School Connect API", version="0.1",
-   *    description="API for School Connect "
+   * @SWG\Info(title="Belajar API", version="0.1",
+   *    description="API for Belajar "
    * )
    *)
    */

@@ -1,27 +1,31 @@
 <?php
 
-
-
-class ScRole extends \Phalcon\Mvc\Model
+class Mahasiswa extends \Phalcon\Mvc\Model
 {
-
     /**
      *
      * @var integer
      */
-    public $roleid;
+    public $idmhs;
 
     /**
      *
      * @var string
      */
-    public $rolename;
+    public $namamhs;
 
     /**
      *
      * @var string
      */
-    public $desc;
+    public $notlpmhs;
+
+    /**
+     *
+     * @var string
+     */
+    public $tgllahirmhs;
+
 
     /**
      * Initialize method for model.
@@ -29,8 +33,7 @@ class ScRole extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("public");
-        $this->setSource("sc_role");
-        $this->hasMany('roleid', 'ScUserRole', 'roleid', ['alias' => 'ScUserRole']);
+        $this->setSource("mahasiswa");
     }
 
     /**
@@ -40,14 +43,14 @@ class ScRole extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'sc_role';
+        return 'mahasiswa';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ScRole[]|ScRole|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Mahasiswa[]|Mahasiswa|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null)
     {
@@ -58,7 +61,7 @@ class ScRole extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ScRole|\Phalcon\Mvc\Model\ResultInterface
+     * @return Mahasiswa|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {

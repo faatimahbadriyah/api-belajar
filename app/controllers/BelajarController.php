@@ -5,23 +5,9 @@ class BelajarController extends Phalcon\Mvc\Controller
     *
     * @SWG\Get(
     *   path="/belajar",
-    *   tags={"9. Belajar"},
-    *   summary="Get Data (Belajar)",
+    *   tags={"Mahasiswa"},
+    *   summary="Get Data Mahasiswa",
     *   produces={"application/json"},
-    *     @SWG\Parameter(
-    *     in="query",
-    *     type="string",
-    *     name="idclass",
-    *     required=true,
-    *     description="ID Kelas",
-    *   ),   
-    *    @SWG\Parameter(
-    *    in="header",
-    *    type="string",
-    *    name="idschool",
-    *    required=true,
-    *    description="ID Sekolah",
-    *   ),
     *   @SWG\Response(
     *     response=200,
     *     description="success",
@@ -30,23 +16,20 @@ class BelajarController extends Phalcon\Mvc\Controller
     * )
     */
     public function getData(){
-        $idc=$this->request->getQuery("idclass");
-        $ids=$this->request->getHeader("idschool");
-
-        $qclass = $this->modelsManager->createQuery('SELECT * FROM SchStudent WHERE classid = :idc: AND schoolid = :ids:'); 
-        $students_class = $qclass->execute(['ids' => $ids, 'idc' => $idc]);
+        $q = $this->modelsManager->createQuery('SELECT * FROM Mahasiswa'); 
+        $datas = $q->execute();
         
         $this->responseApi->status=0;
         $this->responseApi->message="Success";
-        $this->responseApi->data=!empty($students_class)? $students_class :[];
+        $this->responseApi->data=!empty($datas)? $datas :[];
     }
 
     /**
      *
      * @SWG\Post(
      *   path="/belajar/add",
-     *   tags={"9. Belajar"},
-     *   summary="Post Data (Belajar)",
+     *   tags={"Mahasiswa"},
+     *   summary="Add Mahasiswa",
      *   produces={"application/json"},
      *   @SWG\Parameter(
      *     in="body",
