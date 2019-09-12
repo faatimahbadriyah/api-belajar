@@ -27,7 +27,7 @@ class BelajarController extends Phalcon\Mvc\Controller
     /**
      *
      * @SWG\Post(
-     *   path="/belajar/add",
+     *   path="/belajar",
      *   tags={"Mahasiswa"},
      *   summary="Add Mahasiswa",
      *   produces={"application/json"},
@@ -69,7 +69,7 @@ class BelajarController extends Phalcon\Mvc\Controller
     /**
      *
      * @SWG\Put(
-     *   path="/belajar/edit",
+     *   path="/belajar",
      *   tags={"Mahasiswa"},
      *   summary="Edit Data",
      *   produces={"application/json"},
@@ -105,5 +105,45 @@ class BelajarController extends Phalcon\Mvc\Controller
 
         $this->responseApi->status=0;
         $this->responseApi->message=$message;
-      }
+    }
+
+    /**
+     *
+     * @SWG\Delete(
+     *   path="/belajar",
+     *   tags={"Mahasiswa"},
+     *   summary="Delete Data",
+     *   produces={"application/json"},
+     *     @SWG\Parameter(
+     *     in="body",
+     *     name="data",
+     *     required=true,
+     *     description="Activity Data",
+     *     @SWG\Schema(ref="#/definitions/DeleteData")
+     *   ),
+     *   @SWG\Response(
+     *     response=200,
+     *     description="success",
+     *    @SWG\Schema(ref="#/definitions/ResponseApiWorks")
+     *   )
+     * )
+     */
+
+    public function deleteData(){
+        $params = $this->common->parseParameters();
+        
+        $mahasiswa = Mahasiswa::findFirst($params->idmhs);
+        $delete = $mahasiswa->delete();
+        
+        $message = "Data Not Found";
+        if($mahasiswa){         
+            if(!$delete){
+                $message = "Failed";
+            }   
+            $message = "Success";
+        }
+
+        $this->responseApi->status=0;
+        $this->responseApi->message=$message;
+    }
 }

@@ -42,14 +42,20 @@ return [
       ],
       [
         "method"=>"post",
-        "path"=>"/belajar/add",
+        "path"=>"/belajar",
         "action"=>"addData",
         "checkAuth"=>false,
       ],
       [
         "method"=>"put",
-        "path"=>"/belajar/edit",
+        "path"=>"/belajar",
         "action"=>"editData",
+        "checkAuth"=>false,
+      ],
+      [
+        "method"=>"delete",
+        "path"=>"/belajar",
+        "action"=>"deleteData",
         "checkAuth"=>false,
       ],
     ],

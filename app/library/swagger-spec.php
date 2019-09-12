@@ -59,6 +59,9 @@
   * @SWG\Property(property="notlpmhs", type="string", example="089789887889", description="No. Tlp"),
   * @SWG\Property(property="tgllahirmhs", type="date", example="2000-02-20", description="Tanggal Lahir"),
   * ) 
+  * @SWG\Definition(definition="DeleteData",
+  * @SWG\Property(property="idmhs", type="int", example="1", description="ID Mahasiswa"),
+  * )
   * @SWG\Definition(definition="ImagePng",
   * 	@SWG\Property(
   * 		property="image", type="binary",
