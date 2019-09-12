@@ -49,8 +49,9 @@
   *   }
   * )  
   * @SWG\Definition(definition="Belajar",
-  * @SWG\Property(property="idstudent", type="string", example="1", description="idstudent"),
-  * @SWG\Property(property="idclass", type="string", example="3", description="idclass"),
+  * @SWG\Property(property="namamhs", type="string", example="Edward Swan", description="Nama"),
+  * @SWG\Property(property="notlpmhs", type="string", example="089789887889", description="No. Tlp"),
+  * @SWG\Property(property="tgllahirmhs", type="date", example="2000-02-20", description="Tanggal Lahir"),
   * ) 
   * @SWG\Definition(definition="ImagePng",
   * 	@SWG\Property(

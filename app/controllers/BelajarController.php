@@ -47,17 +47,17 @@ class BelajarController extends Phalcon\Mvc\Controller
      */
 
     public function addData(){
-        $params = $this->common->parseParameters();
-        
-        $idstudent = $params->idstudent;
-        $idclass = $params->idclass;
+        $params = $this->common->parseParameters();        
 
-        $data_std = SchStudent::findFirstByStudentid($idstudent);
-        $data_std->classid = $idclass;
-        $save_change = $data_std->save(); 
+        $mahasiswa= new Mahasiswa;        
+        $mahasiswa->namamhs = $params->namamhs;
+        $mahasiswa->notlpmhs = $params->notlpmhs;
+        $mahasiswa->tgllahirmhs = $params->tgllahirmhs;
+
+        $save = $mahasiswa->save(); 
 
         $message = "Success";
-        if(!$save_change){
+        if(!$save){
             $message = "Failed";
         }
 
