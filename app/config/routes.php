@@ -46,6 +46,12 @@ return [
         "action"=>"addData",
         "checkAuth"=>false,
       ],
+      [
+        "method"=>"put",
+        "path"=>"/belajar/edit",
+        "action"=>"editData",
+        "checkAuth"=>false,
+      ],
     ],
   ],
 ];

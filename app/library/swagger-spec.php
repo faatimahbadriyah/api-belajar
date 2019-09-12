@@ -48,7 +48,13 @@
   *    @SWG\Schema(ref="#/definitions/WorksData"),
   *   }
   * )  
-  * @SWG\Definition(definition="Belajar",
+  * @SWG\Definition(definition="AddData",
+  * @SWG\Property(property="namamhs", type="string", example="Edward Swan", description="Nama"),
+  * @SWG\Property(property="notlpmhs", type="string", example="089789887889", description="No. Tlp"),
+  * @SWG\Property(property="tgllahirmhs", type="date", example="2000-02-20", description="Tanggal Lahir"),
+  * )  
+  * @SWG\Definition(definition="EditData",
+  * @SWG\Property(property="idmhs", type="int", example="1", description="ID Mahasiswa"),
   * @SWG\Property(property="namamhs", type="string", example="Edward Swan", description="Nama"),
   * @SWG\Property(property="notlpmhs", type="string", example="089789887889", description="No. Tlp"),
   * @SWG\Property(property="tgllahirmhs", type="date", example="2000-02-20", description="Tanggal Lahir"),
