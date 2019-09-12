@@ -63,7 +63,6 @@ class BelajarController extends Phalcon\Mvc\Controller
 
         $this->responseApi->status=0;
         $this->responseApi->message=$message;
-
     }
 
     /**
@@ -133,10 +132,10 @@ class BelajarController extends Phalcon\Mvc\Controller
         $params = $this->common->parseParameters();
         
         $mahasiswa = Mahasiswa::findFirst($params->idmhs);
-        $delete = $mahasiswa->delete();
         
         $message = "Data Not Found";
-        if($mahasiswa){         
+        if($mahasiswa){
+            $delete = $mahasiswa->delete();         
             if(!$delete){
                 $message = "Failed";
             }   
@@ -145,5 +144,41 @@ class BelajarController extends Phalcon\Mvc\Controller
 
         $this->responseApi->status=0;
         $this->responseApi->message=$message;
+    }
+
+    /**
+    *
+    * @SWG\Get(
+    *   path="/belajar/mahasiswa",
+    *   tags={"Mahasiswa"},
+    *   summary="Get Data Mahasiswa By ID",
+    *   produces={"application/json"},
+    *   @SWG\Parameter(
+    *     in="query",
+    *     type="number",
+    *     name="idmhs",
+    *     required=true,
+    *     description="ID Mahasiswa",
+    *   ),
+    *   @SWG\Response(
+    *     response=200,
+    *     description="success",
+    *    @SWG\Schema(ref="#/definitions/ResponseApiWorks")
+    *   )
+    * )
+    */
+    public function getOneData(){        
+        $idmhs=$this->request->getQuery("idmhs");
+        
+        $mahasiswa = Mahasiswa::findFirst($idmhs);
+        
+        $message = "Success";
+        if(!$mahasiswa){
+            $message = "Failed";
+        }
+        
+        $this->responseApi->status=0;
+        $this->responseApi->message=$message;
+        $this->responseApi->data=!empty($mahasiswa)? $mahasiswa :[];
     }
 }

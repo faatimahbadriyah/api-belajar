@@ -58,6 +58,12 @@ return [
         "action"=>"deleteData",
         "checkAuth"=>false,
       ],
+      [
+        "method"=>"get",
+        "path"=>"/belajar/mahasiswa",
+        "action"=>"getOneData",
+        "checkAuth"=>false,
+      ],
     ],
   ],
 ];
