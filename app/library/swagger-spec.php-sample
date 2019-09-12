@@ -1,0 +1,579 @@
+<?php
+/**
+  * @SWG\Swagger(
+ * basePath="/api/",
+   * @SWG\Info(title="School Connect API", version="0.1",
+   *    description="API for School Connect "
+   * )
+   *)
+   */
+
+/**
+  *
+  * @SWG\Definition(definition="ResponseApiTemplate", type="object",
+  *   @SWG\Property(property="status", type="integer", example="0"),
+  *   @SWG\Property(property="message", type="string", example="Success")
+  * )
+  *
+  * @SWG\Definition(definition="ResponseApiData",
+  *   @SWG\Property(property="data", type="object")
+  * )
+  *
+  *
+  * @SWG\Definition(
+  *   definition="ResponseApiId",
+  *   allOf={
+  *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+  *    @SWG\Schema(required={"data"}, type="object",
+  *       @SWG\Property(property="data",type="object",
+  *         @SWG\Property(property="id", type="string", example="518cb7fe-c9bf-11e7-b626-5254005c6ff0")
+  *       )
+  *    )
+  *   }
+  * )
+     * @SWG\Definition(definition="Package",
+     *  @SWG\Property(property="id", type="string", example="518cb7fe-c9bf-11e7-b626-5254005c6ff0", description=""),
+     *  @SWG\Property(property="name", type="string", example="Package 1", description=""),
+     *  @SWG\Property(property="value", type="numeric", example="50000", description=""),
+     *  @SWG\Property(property="status", type="numeric", example="1", description=""),
+     *  @SWG\Property(property="description", type="string", example="Hire Daily Casual Staff", description=""),
+     *  @SWG\Property(property="post_numbers", type="numeric", example="10", description=""),
+     *  @SWG\Property(property="credit", type="numeric", example="7", description=""),
+     * )
+    * @SWG\Definition(definition="Packages",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/PackagesData"),
+    *   }
+     * )
+     * @SWG\Definition(definition="PackagesData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Package")
+     *  )
+     * )
+ *      @SWG\Definition(definition="Events",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/EventsData"),
+    *   }
+     * )
+     * @SWG\Definition(definition="EventsData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Event")
+     *  )
+     * )
+     * @SWG\Definition(definition="Event",
+     * @SWG\Property(property="id", type="string", example="518cb7fe-c9bf-11e7-b626-5254005c6ff0", description="ID Event"),
+     * @SWG\Property(property="name", type="string", example="JC Convention", description="Event Name"),
+     * @SWG\Property(property="address", type="string", example="Jl. Sudirman , Jakarta", description="Event Address"),
+     * @SWG\Property(property="date", type="string", example="2018-11-01", description="Event Date"),
+     * @SWG\Property(property="city", type="string", example="Jakarta", description="Event City"),
+     * )
+     * 
+     * @SWG\Definition(definition="Register",
+     * @SWG\Property(property="nama_lengkap", type="string", example="Ulfi", description="Nama Lengkap"),
+     * @SWG\Property(property="notep", type="string", example="087237273", description="Nomor Telepon"),
+     * @SWG\Property(property="email", type="string", example="sample@email.com", description="Email"),
+     * @SWG\Property(property="password", type="string", example="safskfasldfaskfsadf", description="Password "),
+     * )
+     * @SWG\Definition(definition="Pengajuan",
+     * @SWG\Property(property="nama_lengkap", type="string", example="Ulfi", description="Nama Lengkap"),
+     * @SWG\Property(property="nohp", type="string", example="087237273", description="Nomor HP"),
+     * @SWG\Property(property="notelp", type="string", example="087237273", description="Nomor Telp Rumah"),
+     * @SWG\Property(property="umur", type="numeric", example="25", description="Umur Nasabah"),
+     * @SWG\Property(property="status_menikah", type="string", example="1", description="0= Belum Menikah, 1=Sudah Menikah "),
+     * @SWG\Property(property="jenis_kelamin", type="string", example="1", description="0= Laki-laki, 1=Perempuan "),
+     * @SWG\Property(property="pendidikan_terakhir", type="string", example="S1", description="Pendidikan Terakhir"),
+     * @SWG\Property(property="pekerjaan", type="string", example="Baso Segar", description="Pekerjaan / Usaha"),
+     * @SWG\Property(property="email", type="string", example="email@example.com", description="Email"),
+     * @SWG\Property(property="npwp", type="string", example="23423424234", description="Nomor NPWP"),
+     * @SWG\Property(property="noktp", type="string", example="23234234234", description="Nomor KTP"),
+     * @SWG\Property(property="lama_bekerja", type="string", example="1", description="Lama Bekerja"),
+     * @SWG\Property(property="perusahaan", type="string", example="Bank Syariah Mandiri", description="Perusahaan"),
+     * @SWG\Property(property="jumlah_pengajuan", type="string", example="15000000", description="Jumlah Pengajuan Pembiayaan"),
+     * @SWG\Property(property="tujuan_pembiayaan", type="string", example="1", description="Tipe Pengajuan"),
+     * @SWG\Property(property="jangka_waktu", type="string", example="15", description="Jangka Waktu"),
+     * @SWG\Property(property="jenis_jaminan", type="string", example="Mobil", description="Jenis Jaminan"),
+     * @SWG\Property(property="dokumen_jaminan", type="string", example="SErtifikat", description="Dokumen Pelengkap Jaminan"),
+     * @SWG\Property(property="lokasi", type="string", example="10101,10100101", description="Lokasi Usaha"),
+     * @SWG\Property(property="alamat", type="string", example="Jl. Gumuruh nomor 1974", description="Alamat"),
+     * @SWG\Property(property="waktu_kunjungan", type="string", example="2018-10-15", description="Waktu Kunjungan"),
+     * @SWG\Property(property="jam_kunjungan", type="string", example="10:00", description="Jam Kunjungan"),
+     * @SWG\Property(property="nama_sales", type="string", example="Agung", description="Nama Sales"),
+     * @SWG\Property(property="idsales", type="string", example="29302482", description="ID Sales"),
+     * @SWG\Property(property="catatan", type="string", example="pembatalan", description="Catatan"),
+     * )
+     * @SWG\Definition(definition="Nasabah",
+     * @SWG\Property(property="id", type="string", example="1", description="ID Nasabah"),
+     * @SWG\Property(property="nama_lengkap", type="string", example="Ulfi", description="Nama Lengkap"),
+     * @SWG\Property(property="notep", type="string", example="087237273", description="Nomor Telepon"),
+     * @SWG\Property(property="email", type="string", example="sample@email.com", description="Email"),
+     * @SWG\Property(property="password", type="string", example="safskfasldfaskfsadf", description="Password "),
+     * )
+ *      @SWG\Definition(definition="ResponseApiNasabahProfile",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/Nasabah"),
+    *   }
+     * )
+     * @SWG\Definition(definition="ChangePassword",
+     * @SWG\Property(property="current_password", type="string", example="safskfasldfaskfsadf", description="Current Password MD5"),
+     * @SWG\Property(property="new_password", type="string", example="safskfasldfaskfsadf", description="New Password M5"),
+     * )
+     * @SWG\Definition(definition="VerificationEmail",
+     * @SWG\Property(property="email", type="string", example="sample@email.com", description="Email"),
+     * @SWG\Property(property="otp", type="string", example="12313", description="OTP Code"),
+     * )
+     * @SWG\Definition(definition="EmailBody",
+     * @SWG\Property(property="email", type="string", example="email@example.com", description="Email"),
+     * )
+     * @SWG\Definition(definition="OtpBody",
+     * @SWG\Property(property="otp", type="string", example="3232sdfs", description="OTP"),
+     * )
+     * @SWG\Definition(definition="NasabahResetVerify",
+     * @SWG\Property(property="email", type="string", example="email@example.com", description="Email"),
+     * @SWG\Property(property="otp", type="string", example="3232sdfs", description="OTP"),
+     * )
+     * @SWG\Definition(definition="NasabahNewPassword",
+     * @SWG\Property(property="email", type="string", example="email@example.com", description="Email"),
+     * @SWG\Property(property="otp", type="string", example="3232sdfs", description="OTP"),
+     * @SWG\Property(property="password", type="string", example="3232sdfs", description="Password"),
+     * )
+ *      @SWG\Definition(definition="ResponseApiSalesProfile",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/Sales"),
+    *   }
+     * )
+     * @SWG\Definition(definition="Sales",
+     * @SWG\Property(property="id", type="string", example="1", description="ID Nasabah"),
+     * @SWG\Property(property="nama_lengkap", type="string", example="Ulfi", description="Nama Lengkap"),
+     * @SWG\Property(property="notep", type="string", example="087237273", description="Nomor Telepon"),
+     * @SWG\Property(property="email", type="string", example="sample@email.com", description="Email"),
+     * @SWG\Property(property="password", type="string", example="safskfasldfaskfsadf", description="Password "),
+     * )
+     * @SWG\Definition(definition="Work",
+     * @SWG\Property(property="id", type="string", example="1", description="Work Name"),
+     * @SWG\Property(property="name", type="string", example="Sys Admin", description="Work Name"),
+     * )
+    * @SWG\Definition(definition="WorksData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Work")
+     *  )
+     * )
+ *      @SWG\Definition(definition="ResponseApiWorks",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/WorksData"),
+    *   }
+     * )
+     * @SWG\Definition(definition="Education",
+     * @SWG\Property(property="id", type="string", example="1", description="Education Id"),
+     * @SWG\Property(property="name", type="string", example="D3", description="Education Name"),
+     * )
+    * @SWG\Definition(definition="EducationsData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Education")
+     *  )
+     * )
+ *      @SWG\Definition(definition="ResponseApiEducations",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/EducationsData"),
+    *   }
+     * )
+     * @SWG\Definition(definition="Assurance",
+     * @SWG\Property(property="idjnsjaminan", type="string", example="1", description="Assurance Id"),
+     * @SWG\Property(property="nmjnsjaminan", type="string", example="Sys Admin", description="Assurance Name"),
+     * )
+    * @SWG\Definition(definition="AssurancesData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Assurance")
+     *  )
+     * )
+ *      @SWG\Definition(definition="ResponseApiAssurances",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/AssurancesData"),
+    *   }
+     * )
+     * @SWG\Definition(definition="Sex",
+     * @SWG\Property(property="idjnskelamin", type="string", example="1", description="Sex Id"),
+     * @SWG\Property(property="nmjnskelamin", type="string", example="Laki-laki", description="Sex Name"),
+     * )
+    * @SWG\Definition(definition="SexsData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Sex")
+     *  )
+     * )
+ *      @SWG\Definition(definition="ResponseApiSexs",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/SexsData"),
+    *   }
+     * )
+     * @SWG\Definition(definition="Marriage",
+     * @SWG\Property(property="idstskawin", type="string", example="1", description="Marrage Id"),
+     * @SWG\Property(property="nmstskawin", type="string", example="Laki-laki", description="Marriage Name"),
+     * )
+    * @SWG\Definition(definition="MarriagesData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Marriage")
+     *  )
+     * )
+ *      @SWG\Definition(definition="ResponseApiMarriages",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/MarriagesData"),
+    *   }
+    * )
+     * @SWG\Definition(definition="AssuranceDoc",
+     * @SWG\Property(property="idjnsjaminan", type="string", example="1", description="Assurance Id"),
+     * @SWG\Property(property="nmjnsjaminan", type="string", example="Sys Admin", description="Assurance Name"),
+     * )
+    * @SWG\Definition(definition="AssurancesDocData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/AssuranceDoc")
+     *  )
+     * )
+ *      @SWG\Definition(definition="ResponseApiAssuranceDocs",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/AssurancesDocData"),
+    *   }
+     * )
+    *
+     * @SWG\Definition(definition="WorkTime",
+     * @SWG\Property(property="idjnsjaminan", type="string", example="1", description="Assurance Id"),
+     * @SWG\Property(property="nmjnsjaminan", type="string", example=">=5", description="Work Time"),
+     * )
+    * @SWG\Definition(definition="WorkTimeData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/WorkTime")
+     *  )
+     * )
+    *
+    * @SWG\Definition(definition="ReferenceData",
+     *   @SWG\Property(property="sexs", type="array",
+     *       @SWG\Items(ref="#/definitions/Sex")
+     *  ),
+     *   @SWG\Property(property="marriages", type="array",
+     *       @SWG\Items(ref="#/definitions/Marriage")
+     *  ),
+     *   @SWG\Property(property="assurances", type="array",
+     *       @SWG\Items(ref="#/definitions/Assurance")
+     *  ),
+     *   @SWG\Property(property="works", type="array",
+     *       @SWG\Items(ref="#/definitions/Work")
+     *  ),
+     *   @SWG\Property(property="educations", type="array",
+     *       @SWG\Items(ref="#/definitions/Education")
+     *  ),
+     *   @SWG\Property(property="assurance_docs", type="array",
+     *       @SWG\Items(ref="#/definitions/AssuranceDoc")
+     *  ),
+     *   @SWG\Property(property="work_time", type="array",
+     *       @SWG\Items(ref="#/definitions/WorkTime")
+     *  )
+     * )
+    *   
+    *      @SWG\Definition(definition="ResponseApiReferences",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/ReferenceData"),
+    *   }
+     * )
+    *      @SWG\Definition(definition="Position",
+     * @SWG\Property(property="latitude", type="string", example="0.232232323", description="Latitude"),
+     * @SWG\Property(property="longitude", type="string", example="-1.2323232323", description="Longitude"),
+     * )
+     * 
+
+  * @SWG\Definition(
+  *   definition="ResponseApiPosition",
+  *   allOf={
+  *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+  *    @SWG\Schema(required={"data"}, type="object",
+  *       @SWG\Property(property="data",type="object",
+  *              * @SWG\Property(property="latitude", type="string", example="0.232232323", description="Latitude"),
+     *          @SWG\Property(property="longitude", type="string", example="-1.2323232323", description="Longitude"),
+  *       )
+  *    )
+  *   }
+  * )
+     * @SWG\Definition(definition="ImagePng",
+	 * 	@SWG\Property(
+	 * 		property="image", type="binary",
+	 * 	),
+	 * )
+     * @SWG\Definition(definition="FileBinary",
+	 * 	@SWG\Property(
+	 * 		property="file", type="binary",
+	 * 	),
+	 * )
+     * @SWG\Definition(definition="Mitra",
+     * @SWG\Property(property="id", type="string", example="1", description="ID Mitra"),
+     * @SWG\Property(property="nama_lengkap", type="string", example="Ulfi", description="Nama Lengkap"),
+     * @SWG\Property(property="notep", type="string", example="087237273", description="Nomor Telepon"),
+     * @SWG\Property(property="email", type="string", example="sample@email.com", description="Email"),
+     * @SWG\Property(property="password", type="string", example="safskfasldfaskfsadf", description="Password "),
+     * )
+ *      @SWG\Definition(definition="ResponseApiMitraProfile",
+     *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/Mitra"),
+    *   }
+     * )
+     * @SWG\Definition(definition="MitraUpdate",
+     * @SWG\Property(property="nama_lengkap", type="string", example="Ulfi", description="Nama Lengkap"),
+     * @SWG\Property(property="notep", type="string", example="087237273", description="Nomor Telepon"),
+     * @SWG\Property(property="email", type="string", example="sample@email.com", description="Email"),
+     * @SWG\Property(property="password", type="string", example="safskfasldfaskfsadf", description="Password "),
+     * )
+      * @SWG\Definition(definition="JemputUang",
+         * @SWG\Property(property="norektabungan", type="string", example="234244", description="Nomor Rekening Tabungan"),
+      * @SWG\Property(property="idloan", type="string", example="12345", description="ID Loan"),
+	     * @SWG\Property(property="nmnasabah", type="string", example="Ulfi", description="Nama Nasabah"),
+	     * @SWG\Property(property="jumtotsetorantoday", type="numeric", example="1234567890", description="Jumlah Total Setorang Hari ini "),
+	     * @SWG\Property(property="tgljatuhtempo", type="string", example="2018-09-09", description="Tanggal Jatuh Tempo"),
+	     * @SWG\Property(property="jumangsuranperbln", type="numeric", example="123456", description="Jumlah Angsuran per bulan"),
+	     * @SWG\Property(property="jumpinalti", type="numeric", example="123456", description="Jumlah penalti"),
+	     * @SWG\Property(property="tglsetoran", type="string", example="2018-09-09", description="Tanggal Setoran"),
+	     * @SWG\Property(property="catatan", type="string", example="Catatan Uang", description="Catatan"),
+	     * @SWG\Property(property="tglangsuran", type="string", example="2018-09-09", description="Tanggal Angsuran"),
+	     * @SWG\Property(property="lokasipengambilan", type="string", example="Bandung", description="Lokasi Pengambilan"),
+	     * @SWG\Property(property="alamat", type="string", example="Jl. Garut", description="Alamat"),
+	     * @SWG\Property(property="waktukunjungan", type="string", example="2018-09-09 11:11", description="Waktu Kunjungan"),
+	     * @SWG\Property(property="tunggakanpokok", type="numeric", example="1234567", description="Tunggakan Pokok"),
+	     * @SWG\Property(property="tunggakanmargin", type="numeric", example="1234567", description="Tunggakan Margin"),
+	     * @SWG\Property(property="tottunggakan", type="numeric", example="1234567890", description="Total Tunggakan"),
+	     * @SWG\Property(property="kolektif", type="string", example="1", description="Kolektif"),
+	     * @SWG\Property(property="lamatunggakan", type="numeric", example="12", description="Lama Tunggakan"),
+	     * @SWG\Property(property="status", type="numeric", example="0", description="Status"),
+	     * @SWG\Property(property="idkanwil", type="numeric", example="0", description="ID Kanwil"),
+	     * @SWG\Property(property="idarea", type="numeric", example="0", description="ID Area"),
+	     * @SWG\Property(property="idcabang", type="numeric", example="0", description="ID Cabang"),
+	     * @SWG\Property(property="idoutlet", type="numeric", example="0", description="ID Outlet"),
+	     * @SWG\Property(property="idmitramikro", type="string", example="123", description="ID Mitra Mikro"),
+	     * @SWG\Property(property="idsales", type="string", example="123", description="ID Sales")
+        * )
+      * @SWG\Definition(definition="Tagihan",
+	     * @SWG\Property(property="norektabungan", type="string", example="234244", description="Nomor Rekening Tabungan"),
+	     * @SWG\Property(property="idloan", type="string", example="234244", description="ID Loan"),
+	     * @SWG\Property(property="idnasabah", type="string", example="234244", description="ID Nasabah"),
+	     * @SWG\Property(property="nmnasabah", type="string", example="234244", description="Nama Nasabah"),
+	     * @SWG\Property(property="tgljatuhtempo", type="string", example="2018-09-09", description="Tanggal Jatuh Tempo"),
+	     * @SWG\Property(property="jumangsuranperbln", type="numeric", example="12345", description="Jumlah Angsuran Per bulan"),
+	     * @SWG\Property(property="jumpinalti", type="numeric", example="1234567890", description="Jumlah Pinalti"),
+	     * @SWG\Property(property="tglsetoran", type="string", example="2018-09-09", description="Tanggal Setoran"),
+	     * @SWG\Property(property="tglangsuran", type="string", example="2018-09-09", description="Tanggal Angsuran"),
+	     * @SWG\Property(property="tunggakanpokok", type="numeric", example="12345", description="Tunggakan Pokok"),
+	     * @SWG\Property(property="tunggakanmargin", type="numeric", example="12345", description="Tunggakan Margin"),
+	     * @SWG\Property(property="tottunggakan", type="numeric", example="1234567890", description="Total Tunggakan"),
+	     * @SWG\Property(property="kolektif", type="string", example="1", description="Kolektif"),
+	     * @SWG\Property(property="lamatunggakan", type="numeric", example="12", description="Lama Tunggakan"),
+	     * @SWG\Property(property="idmitramiktro", type="string", example="123456", description="ID Mitra"),
+	     * @SWG\Property(property="idkanwil", type="numeric", example="12345", description="ID Kanwil"),
+	     * @SWG\Property(property="idarea", type="numeric", example="12345", description="ID Area"),
+	     * @SWG\Property(property="idcabang", type="numeric", example="12345", description="ID Cabang"),
+	     * @SWG\Property(property="idoutlet", type="numeric", example="12345", description="ID Outlet"),
+	     * @SWG\Property(property="idlisttagihan", type="numeric", example="12345", description="ID List Taginan"),
+        * )
+    * @SWG\Definition(definition="TagihanData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Tagihan")
+     *  )
+     * )
+ *      @SWG\Definition(definition="ResponseApiTagihan",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/TagihanData"),
+    *   }
+     * )        
+      * @SWG\Definition(definition="Kanwil",
+	     * @SWG\Property(property="idkanwil", type="numeric", example="12345", description="ID Kanwil"),
+	     * @SWG\Property(property="nmkanwil", type="string", example="Jawa Barat", description="Nama Kanwil"),
+    *  )
+    * @SWG\Definition(definition="KanwilData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Kanwil")
+     *  )
+     * )      
+     *      @SWG\Definition(definition="ResponseApiKanwil",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/KanwilData"),
+    *   }
+     * )        
+      * @SWG\Definition(definition="Cabang",
+	     * @SWG\Property(property="idkanwil", type="numeric", example="12345", description="ID Kanwil"),
+	     * @SWG\Property(property="idcabang", type="numeric", example="12345", description="ID Cabang"),
+	     * @SWG\Property(property="nmcabang", type="string", example="Jawa Barat", description="Nama Cabang"),
+    *  )
+    * @SWG\Definition(definition="CabangData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Cabang")
+     *  )
+     * )      
+     *      @SWG\Definition(definition="ResponseApiCabang",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/CabangData"),
+    *   }
+     * )        
+      * @SWG\Definition(definition="Area",
+	     * @SWG\Property(property="idarea", type="numeric", example="12345", description="ID Area"),
+	     * @SWG\Property(property="idkanwil", type="numeric", example="12345", description="ID Kanwil"),
+	     * @SWG\Property(property="idcabang", type="numeric", example="12345", description="ID Cabang"),
+	     * @SWG\Property(property="nmarea", type="string", example="Jawa Barat", description="Nama Area"),
+    *  )
+    * @SWG\Definition(definition="AreaData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Area")
+     *  )
+     * )      
+     *      @SWG\Definition(definition="ResponseApiArea",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/AreaData"),
+    *   }
+     * )        
+    * @SWG\Definition(definition="JemputUangData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/JemputUang")
+     *  )
+     * )      
+   *      @SWG\Definition(definition="ResponseApiJemputUang",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/JemputUangData"),
+    *   }
+    * )
+      * @SWG\Definition(definition="Cash",
+      * @SWG\Property(property="idcatatan", type="string", example="12345", description="ID Catatan"),
+      * @SWG\Property(property="idnasabah", type="string", example="12345", description="ID Nasabah"),
+      * @SWG\Property(property="tanggal", type="string", example="2018-12-07", description="Tanggal catatan"),
+      * @SWG\Property(property="deskripsi", type="string", example="Pembelian Barang", description="Deskripsi catatan"),
+      * @SWG\Property(property="nominal", type="string", example="1000000", description="Nominal"),
+      * @SWG\Property(property="jenistransaksi", type="string", example="masuk", description="Jenis Transaksi (masuk/keluar)"),
+      *)
+      * @SWG\Definition(definition="CashCreate",
+      * @SWG\Property(property="idnasabah", type="string", example="12345", description="ID Nasabah"),
+      * @SWG\Property(property="tanggal", type="string", example="2018-12-07", description="Tanggal catatan"),
+      * @SWG\Property(property="deskripsi", type="string", example="Pembelian Barang", description="Deskripsi catatan"),
+      * @SWG\Property(property="nominal", type="string", example="1000000", description="Nominal"),
+      * @SWG\Property(property="jenistransaksi", type="string", example="masuk", description="Jenis Transaksi (masuk/keluar)"),
+      *)
+    * @SWG\Definition(definition="CashData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Cash")
+     *  )
+     * )      
+    * @SWG\Definition(definition="CashDataSingle",
+     *   @SWG\Property(property="data", type="object",
+     *       @SWG\Items(ref="#/definitions/Cash")
+     *  )
+     * )      
+   *      @SWG\Definition(definition="ResponseApiCash",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/CashData"),
+    *   }
+    * )
+   *      @SWG\Definition(definition="ResponseApiCashSingle",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/CashDataSingle"),
+    *   }
+    * )
+     *      @SWG\Definition(definition="ResponseApiJemputUangSingle",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+     *   @SWG\Schema(ref="#/definitions/JemputUangDataSingle"),
+    *   }
+     * )        
+    * @SWG\Definition(definition="JemputUangDataSingle",
+     *   @SWG\Property(property="data", type="object",
+     *       @SWG\Items(ref="#/definitions/JemputUang")
+     *  )
+     * )      
+     * 
+      * @SWG\Definition(definition="MitraBsm",
+      * @SWG\Property(property="idmitra", type="string", example="12345", description="ID Mitr"),
+      * @SWG\Property(property="idkategori", type="string", example="12345", description="ID Kategori"),
+      * @SWG\Property(property="nmmitra", type="string", example="Mitra BSM", description="Nama Mitra BSM"),
+      * @SWG\Property(property="deskripsi", type="string", example="Deskripsi Mitra BSM", description="Deskripsi Mitra BSM"),
+      * @SWG\Property(property="linkmitra", type="string", example="http://mitra.bsm.co.id", description="Logo"),
+      * @SWG\Property(property="urlmitra", type="string", example="http://mitra.bsm.co.id", description="Link Mitra BS"),
+      *)
+    * @SWG\Definition(definition="MitraBsmData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/MitraBsm")
+     *  )
+     * )      
+    * @SWG\Definition(definition="MitraBsmDataSingle",
+     *   @SWG\Property(property="data", type="object",
+     *       @SWG\Items(ref="#/definitions/MitraBsm")
+     *  )
+     * )      
+   *      @SWG\Definition(definition="ResponseApiMitraBsm",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/MitraBsmData"),
+    *   }
+    * )
+   *      @SWG\Definition(definition="ResponseApiMitraBsmSingle",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/MitraBsmDataSingle"),
+    *   }
+    * )
+
+     * 
+      * @SWG\Definition(definition="Kategori",
+      * @SWG\Property(property="idkategori", type="string", example="12345", description="ID Kategori"),
+      * @SWG\Property(property="nmkategori", type="string", example="Kategori 1M", description="Nama Kategori"),
+      *)
+    * @SWG\Definition(definition="KategoriData",
+     *   @SWG\Property(property="data", type="array",
+     *       @SWG\Items(ref="#/definitions/Kategori")
+     *  )
+     * )      
+    * @SWG\Definition(definition="KategoriDataSingle",
+     *   @SWG\Property(property="data", type="object",
+     *       @SWG\Items(ref="#/definitions/Kategori")
+     *  )
+     * )      
+   *      @SWG\Definition(definition="ResponseApiKategori",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/KategoriData"),
+    *   }
+    * )
+   *      @SWG\Definition(definition="ResponseApiKategoriSingle",
+    *   allOf={
+    *    @SWG\Schema(ref="#/definitions/ResponseApiTemplate"),
+    *    @SWG\Schema(ref="#/definitions/KategoriDataSingle"),
+    *   }
+    * )
+
+      * @SWG\Definition(definition="StatusJemputUang",
+      * @SWG\Property(property="id", type="string", example="12345", description="ID Jemput Uang"),
+      * @SWG\Property(property="status", type="string", example="3", description="Status"),
+      * @SWG\Property(property="catatan", type="string", example="3", description="Catatan"),
+      * )
+
+      * @SWG\Definition(definition="StatusPengajuan",
+      * @SWG\Property(property="id", type="string", example="12345", description="ID Jemput Uang"),
+      * @SWG\Property(property="status", type="string", example="3", description="Status"),
+      * @SWG\Property(property="catatan", type="string", example="3", description="Catatan"),
+      * )
+
+      
+      * @SWG\Definition(definition="Announcement",
+      * @SWG\Property(property="id", type="string", example="12345", description="ID Pengumuman"),
+      * @SWG\Property(property="title", type="string", example="3", description="title"),
+      * @SWG\Property(property="content", type="string", example="3", description="content"),
+      * )
+
+*/

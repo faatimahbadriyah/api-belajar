@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Ubah Password</title>
+        <link rel="stylesheet" href="/css/kerjaku.css" />
+    </head>
+    <body>
+		<div class="header">
+			<img src="/images/kerjaku-logo.svg"  border="0" />
+		</div>
+        <div class="container">
+            <h3>Ubah Password</h3>
+            <?php if(!empty($message)): ?>
+            <em>Status: <?=$message?></em>
+            <?php endif;?>
+        </div>
+		<form method="post">
+		  <div class="form-group">
+			<label for="exampleInputEmail1">Password</label>
+			<input type="password" name="password" class="form-control" id="password" aria-describedby="emailHelp" placeholder="Masukkan Password">
+		  </div>
+		  <div class="form-group">
+			<label for="exampleInputPassword1">Konfirmasi Password</label>
+			<input type="password" name="konfirmasi_password" class="form-control" id="konfirmasi_password" placeholder="Masukkan Konfirmasi Password">
+		  </div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		  <input type="hidden" name="code" value="<?=$code?>"/>
+		</form>
+    </body>
+</html>

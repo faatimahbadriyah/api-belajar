@@ -1,0 +1,10 @@
+logs/*
+vendor
+app/config/env/*
+!app/config/env/sample.php
+app/config/environment.php
+.fuse_hidden*
+data/*
+tests/_output/*
+composer.lock
+composer.phar

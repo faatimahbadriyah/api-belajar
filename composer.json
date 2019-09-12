@@ -1,0 +1,12 @@
+{
+    "require": {
+        "zircote/swagger-php": "^2.0",
+        "phalcon/incubator": "^3.4",
+        "tecnickcom/tc-lib-barcode": "^1.15",
+        "phpoffice/phpspreadsheet": "^1.6",
+        "php-ffmpeg/php-ffmpeg": "^0.14.0"
+    },
+    "require-dev": {
+        "codeception/codeception": "^2.3"
+    }
+}
