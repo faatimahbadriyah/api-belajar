@@ -143,4 +143,40 @@ class MatakuliahController extends Phalcon\Mvc\Controller
       $this->responseApi->status=0;
       $this->responseApi->message=$message;
     }
+
+    /**
+    *
+    * @SWG\Get(
+    *   path="/matkul/mk",
+    *   tags={"Matakuliah"},
+    *   summary="Get Data Matakuliah By ID",
+    *   produces={"application/json"},
+    *   @SWG\Parameter(
+    *     in="query",
+    *     type="number",
+    *     name="idmk",
+    *     required=true,
+    *     description="ID Matakuliah",
+    *   ),
+    *   @SWG\Response(
+    *     response=200,
+    *     description="success",
+    *    @SWG\Schema(ref="#/definitions/ResponseApiWorks")
+    *   )
+    * )
+    */
+    public function getOneData(){        
+      $idmk=$this->request->getQuery("idmk");
+      
+      $matakuliah = Matakuliah::findFirst($idmk);
+      
+      $message = "Success";
+      if(!$matakuliah){
+          $message = "Failed";
+      }
+      
+      $this->responseApi->status=0;
+      $this->responseApi->message=$message;
+      $this->responseApi->data=!empty($matakuliah)? $matakuliah :[];
+  }
 }
