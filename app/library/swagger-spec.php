@@ -62,6 +62,16 @@
   * @SWG\Definition(definition="DeleteData",
   * @SWG\Property(property="idmhs", type="int", example="1", description="ID Mahasiswa"),
   * )
+  * @SWG\Definition(definition="AddDataMk",
+  * @SWG\Property(property="namamk", type="string", example="Bahasa Inggris", description="Nama Matakuliah"),
+  * ) 
+  * @SWG\Definition(definition="EditDataMk",
+  * @SWG\Property(property="idmk", type="int", example="1", description="ID Matakuliah"),
+  * @SWG\Property(property="namamk", type="string", example="Bahasa Inggris", description="Nama Matakuliah"),
+  * )
+  * @SWG\Definition(definition="DeleteDataMk",
+  * @SWG\Property(property="idmk", type="int", example="1", description="ID Matakuliah"),
+  * )
   * @SWG\Definition(definition="ImagePng",
   * 	@SWG\Property(
   * 		property="image", type="binary",

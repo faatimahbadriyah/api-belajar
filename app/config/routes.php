@@ -66,4 +66,40 @@ return [
       ],
     ],
   ],
+  // Mata Kuliah
+  [
+    "controller"=>"MatakuliahController",
+    "data"=>[
+      [
+        "method"=>"get",
+        "path"=>"/matkul",
+        "action"=>"getData",
+        "checkAuth"=>false,
+      ],
+      [
+        "method"=>"post",
+        "path"=>"/matkul",
+        "action"=>"addData",
+        "checkAuth"=>false,
+      ],
+      [
+        "method"=>"put",
+        "path"=>"/matkul",
+        "action"=>"editData",
+        "checkAuth"=>false,
+      ],
+      [
+        "method"=>"delete",
+        "path"=>"/matkul",
+        "action"=>"deleteData",
+        "checkAuth"=>false,
+      ],
+      [
+        "method"=>"get",
+        "path"=>"/matkul/mk",
+        "action"=>"getOneData",
+        "checkAuth"=>false,
+      ],
+    ],
+  ],
 ];

@@ -94,12 +94,14 @@ class BelajarController extends Phalcon\Mvc\Controller
         $mahasiswa->namamhs = $params->namamhs;
         $mahasiswa->notlpmhs = $params->notlpmhs;
         $mahasiswa->tgllahirmhs = $params->tgllahirmhs;
-  
-        $save = $mahasiswa->save(); 
-
-        $message = "Success";
-        if(!$save){
-            $message = "Failed";
+        
+        $message = "Data Not Found";
+        if($mahasiswa){
+            $save = $mahasiswa->save();
+            if(!$save){
+                $message = "Failed";
+            }
+            $message = "Success";
         }
 
         $this->responseApi->status=0;
